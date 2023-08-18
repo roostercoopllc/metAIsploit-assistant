@@ -48,16 +48,16 @@ You can then chat with the model and generate responses. When those responses fi
 
 ## Create / Update Datasets model training
 `Create Initial Datasets`
-* `Labels`
-- Attempted Automated Labeling:
-- Manual Labeling:
+* *Labels*
+  * Attempted Automated Labeling:
+  * Manual Labeling:
 
-* `Training`
-- Transfer Learning:
-- Scoring / Performance:
+* *Training*
+  * Transfer Learning:
+  * Scoring / Performance:
 
-* `Saving Model`
-- Saving Models:
+* *Saving Model*
+  * Saving Models:
 
 ## Ways to contribute
 1. Label Data
