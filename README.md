@@ -29,11 +29,6 @@ You can use this module through the poetry commands outlined in the `pyproject.t
 
 However, it is intended to be available through the `msfconsole` to where you can use a digital assistant without needing to start a different terminal and keep the same session alive. 
 
-```sh
-
-```
-
-
 ### Requirements
 * python 3.11
 * git-lfs
