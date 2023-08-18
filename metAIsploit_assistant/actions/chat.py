@@ -5,7 +5,7 @@ from metAIsploit_assistant.types import BASE_MODELS
 from metAIsploit_assistant.utilities.formatters import (
     has_script_in_response,
     splice_out_file,
-    save_response_output_to_file
+    save_response_output_to_file,
 )
 
 
@@ -58,17 +58,17 @@ def perform_chat() -> None:
             llm_response = llm_chain.run(prompt_text)
             if has_script_in_response(llm_response):
                 script_cut_out = splice_out_file(llm_response)
-                print(script_cut_out)
                 for cut_out in script_cut_out:
                     save_to_file = input(
-                        f"Would you like to save the {cut_out.file_type} script to a file? (y/n)"
+                        f"\nWould you like to save the {cut_out.file_type} script to a file? (y/n)"
                     )
                     if save_to_file == "y" or save_to_file == "yes":
+                        os_system = input("System Type: (windows/mac/linux): ")
                         save_filename = input(
-                            "Where would you like to save the file (file endings will be added automatically)? (default: ./default_output.txt) "
+                            f"""\n{cut_out.content}\nWhere would you like to save the file (file endings will be added automatically)? (default: <METASPLOIT_ROOT>/modules/linux/custom/default_output.py) """
                         )
-                        if not save_filename:
-                            save_filename = "./default_output.py"
-                        save_response_output_to_file(cut_out, save_filename)
+                        if save_filename == "":
+                            save_filename = "default_output.py"
+                        save_response_output_to_file(cut_out, save_filename, os_system)
 
     print("\nHappy Hacking!")

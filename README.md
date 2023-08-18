@@ -16,10 +16,11 @@ poetry run prompt-demo
 
 You can run the script interactively by running the following command:
 ```sh
-cp .env-dev .env
+export METASPLOIT_ROOT=<your metasploit root>
 # Update the .env with your MSF root
 poetry run chat
 ```
+*Note* Depending on your hardware you are running this on, this might take a little while to return the response.
 
 ## Install / Setup
 This project uses poetry to generate manage dependencies and attempts to keep the project clean (we will see for how long)
@@ -48,7 +49,7 @@ To run the chat interactively
 ```sh
 poetry run chat
 ```
-You can then chat with the model and generate responses. When those responses find code snippets, the script will ask if you wanted to 
+You can then chat with the model and generate responses. When those responses find code snippets, the script will ask if you wanted to save each individual code snippet. 
 
 ## Create / Update Datasets model training
 `Create Initial Datasets`

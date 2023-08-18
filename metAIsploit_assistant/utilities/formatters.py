@@ -1,5 +1,6 @@
 import os
-from typing import List, Optional
+from pathlib import Path
+from typing import List
 from metAIsploit_assistant.types import SupportedScripts, LlmFileOutput
 
 
@@ -17,7 +18,9 @@ def splice_out_file(llm_resp: str) -> List[LlmFileOutput]:
             )
         elif SupportedScripts.PYTHON.value in parse[:10]:
             scripts.append(
-                LlmFileOutput(file_type=SupportedScripts.PYTHON.value, content=parse[7:])
+                LlmFileOutput(
+                    file_type=SupportedScripts.PYTHON.value, content=parse[7:]
+                )
             )
         elif SupportedScripts.PIP.value in parse[:10]:
             print("You will need to figure out the deps install stuff later")
@@ -30,11 +33,14 @@ def splice_out_file(llm_resp: str) -> List[LlmFileOutput]:
 
 
 def save_response_output_to_file(
-    llm_resp: LlmFileOutput, filename: str
+    llm_resp: LlmFileOutput, filename: str, os_system: str
 ) -> None:
-    if llm_resp.file_type == SupportedScripts.BASH.value:
-        filename = f"{filename}.sh"
-    if llm_resp.file_type == SupportedScripts.PYTHON.value:
-        filename = f"{filename}.py"
-    with open(filename, "w") as fi:
+    write_loc = filename
+    msf_root = os.environ.get("METASPLOIT_ROOT")
+    if msf_root:
+        write_loc = f"{msf_root}/modules/{os_system}/custom/{filename}"
+        Path(write_loc).parent.mkdir(
+            parents=True, exist_ok=True
+        )
+    with open(write_loc, "w") as fi:
         fi.write(llm_resp.content)
