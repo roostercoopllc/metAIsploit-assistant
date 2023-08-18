@@ -52,12 +52,12 @@ def main():
     get_default_model()
     run_demo_from_prompt(
         BASE_MODELS.SNOOZY,
-        "Write a metasploit module for the EternalBlue vulnerability",
+        "Write a metasploit module for log4j vulnerability",
     )
 
 
 def poetry_run_prompt_demo():
     run_demo_from_prompt(
         BASE_MODELS.SNOOZY,
-        "Write a metasploit module for the EternalBlue vulnerability",
+        "Write a metasploit module for log4j vulnerability",
     )
