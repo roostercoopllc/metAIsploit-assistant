@@ -11,10 +11,8 @@ def setup_model() -> LLMChain:
     # If you want to use a custom model add the backend parameter
     # Check https://docs.gpt4all.io/gpt4all_python.html for supported backends
     model_choice = input(
-        """
-                         Choose a model:
-                         1. Snoozy (Nomadic.ai) [Default]: 
-                         """
+        """Choose a model:
+        1. Snoozy (Nomadic.ai) [Default]: """
     )
     hacker_model = None
     if type(model_choice) is int:
@@ -50,8 +48,8 @@ def perform_chat() -> None:
     llm_chain = setup_model()
 
     while prompt_text != "exit":
-        prompt_text = input("What do you want to know? (enter: exit to stop)")
+        prompt_text = input("\nWhat do you want to know? (enter: exit to stop): ")
 
-        llm_chain.run_prompt(prompt_text)
+        llm_chain.run(prompt_text)
 
     print("Happy Hacking")

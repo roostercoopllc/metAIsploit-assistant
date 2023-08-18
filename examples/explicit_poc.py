@@ -51,11 +51,13 @@ def run_demo_from_prompt(hacker_model: HackerModel, prompt_question: str) -> str
 def main():
     get_default_model()
     run_demo_from_prompt(
-        BASE_MODELS.SNOOZY, "Write a python script that looks for exploits"
+        BASE_MODELS.SNOOZY,
+        "Write a metasploit module for the EternalBlue vulnerability",
     )
 
 
 def poetry_run_prompt_demo():
     run_demo_from_prompt(
-        BASE_MODELS.SNOOZY, "Write a python script that looks for exploits"
+        BASE_MODELS.SNOOZY,
+        "Write a metasploit module for the EternalBlue vulnerability",
     )

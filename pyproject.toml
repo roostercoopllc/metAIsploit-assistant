@@ -24,7 +24,7 @@ black = "^23.7.0"
 lint = "black ."
 
 [tool.poetry.scripts]
-chat = "metAIsploit_assistant.actions.chat:main"
+chat = "metAIsploit_assistant.actions.chat:perform_chat"
 demo = "examples.explicit_poc:main"
 prompt-demo = "examples.explicit_poc:poetry_run_prompt_demo"
 
