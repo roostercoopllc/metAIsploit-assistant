@@ -24,6 +24,7 @@ black = "^23.7.0"
 lint = "black ."
 
 [tool.poetry.scripts]
+init = "metAIsploit_assistant.utilities.models:get_models_inventory"
 chat = "metAIsploit_assistant.actions.chat:perform_chat"
 demo = "examples.explicit_poc:main"
 prompt-demo = "examples.explicit_poc:poetry_run_prompt_demo"

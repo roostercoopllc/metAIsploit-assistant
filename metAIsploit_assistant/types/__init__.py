@@ -1,10 +1,11 @@
-from typing import Optional
+from typing import Optional, List
 from enum import StrEnum
 from pydantic import BaseModel
 
 
 class HackerModel(BaseModel):
     name: str
+    choice_name: str
     url: str
     file_location: Optional[str]
 
@@ -48,6 +49,10 @@ class LlmFileOutput(BaseModel):
 class BASE_MODELS:
     SNOOZY = HackerModel(
         name=KnownModels.SNOOZY.value,
+        choice_name=f"{KnownModels.SNOOZY.value} (Nomic.ai)",
         url=KnownModelUrls.SNOOZY.value,
         file_location=f"examples/models/{KnownModels.SNOOZY.value}",
     )
+
+    def get_model_inventory() -> List[HackerModel]:
+        return [BASE_MODELS.SNOOZY]

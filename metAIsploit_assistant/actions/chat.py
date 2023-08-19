@@ -7,6 +7,11 @@ from metAIsploit_assistant.utilities.formatters import (
     splice_out_file,
     save_response_output_to_file,
 )
+from metAIsploit_assistant.utilities.models import (
+    get_available_models,
+    model_choices_prompt,
+    model_selection,
+)
 
 
 def setup_model() -> LLMChain:
@@ -15,21 +20,12 @@ def setup_model() -> LLMChain:
 
     # If you want to use a custom model add the backend parameter
     # Check https://docs.gpt4all.io/gpt4all_python.html for supported backends
-    model_choice = input(
-        """Choose a model:
-        1. Snoozy (Nomadic.ai) [Default]: """
-    )
+    model_choice = input(model_choices_prompt())
     hacker_model = None
-    if type(model_choice) is int:
-        match model_choice:
-            case 1:
-                print("Using Snoozy Model")
-                hacker_model = BASE_MODELS.SNOOZY
-            case _:
-                print("Using Default Model")
-                hacker_model = BASE_MODELS.SNOOZY
+    if type(model_choice) is int and model_choice < len(get_available_models()):
+        hacker_model = model_selection(model_choice)
     else:
-        print("Choice was not a valid option")
+        print("Choice was not a valid option. Defaulting to Snoozy.")
         hacker_model = BASE_MODELS.SNOOZY
 
     llm = GPT4All(
