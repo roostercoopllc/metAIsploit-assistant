@@ -12,14 +12,20 @@ Assumptions of the project:
 ## Quick Use
 For a quick demo on how this is used please run the following commands (assuming you have the pre-reqs installed).
 
+Setup
 ```sh
 pip install poetry
 git clone https://github.com/roostercoopllc/metAIsploit-assistant
 cd metAIsploit-assistant
 poetry install
-# If you don't have the model downloaded
+# (Optional) This will download the snoozy binary by default
+poetry run init
+```
+
+```sh
+# If you don't have the snoozy model downloaded
 poetry run demo
-# if you do have the model downloaded
+# if you do have the snoozy model downloaded
 poetry run prompt-demo
 ```
 
@@ -58,7 +64,7 @@ poetry run chat
 
 You can then chat with the model and generate responses. When those responses find code snippets, the script will ask if you wanted to save each individual code snippet. 
 
-## Create / Update Datasets model training
+## (TO-DO) Create / Update Datasets model training
 `Create Initial Datasets`
 * *Labels*
   * Attempted Automated Labeling:
@@ -71,7 +77,7 @@ You can then chat with the model and generate responses. When those responses fi
 * *Saving Model*
   * Saving Models:
 
-## Ways to contribute
+## (TO-DO) Ways to contribute
 1. Label Data
 2. Create Quality of Life to code
 3. Write wiki documents
