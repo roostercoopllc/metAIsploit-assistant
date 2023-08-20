@@ -29,7 +29,7 @@ init = "metAIsploit_assistant.utilities.models:get_models_inventory"
 chat = "metAIsploit_assistant.actions.chat:perform_chat"
 demo = "examples.explicit_poc:main"
 prompt-demo = "examples.explicit_poc:poetry_run_prompt_demo"
-quick-test = "metAIsploit_assistant.utilities.gatherers:get_full_prompt_list_for_msf"
+generate-prompts = "metAIsploit_assistant.utilities.gatherers:get_full_prompt_list_for_msf"
 
 
 [build-system]

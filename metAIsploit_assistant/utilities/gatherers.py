@@ -1,3 +1,4 @@
+import json
 import os
 import re
 import requests
@@ -111,5 +112,12 @@ def get_full_prompt_list_for_msf() -> List[dict]:
         urls_list = get_urls_from_mitre_cve_post(msf_module.cve)
         for url in urls_list:
             ...
-    print(f"Completed prompt generation. Total {len(msf_module)} modules generated {len(prompt_list)} total prompts")
+    print(f"Completed prompt generation. Total {len(msf_modules)} modules generated {len(prompt_list)} total prompts")
+    save_to_file = input("Do you want to save the output to a file? (y/n): ")
+    if save_to_file == 'y' or save_to_file == 'yes':
+        file_location = input("Save File Location? (Default Location: ./datasets/metasploit-prompts.json): ")
+        if file_location == "":
+            file_location = "datasets/metasploit-prompts.json"
+        with open(file_location, 'w') as fi:
+            json.dump(prompt_list, fi)
     return prompt_list
