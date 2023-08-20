@@ -68,6 +68,13 @@ You can then chat with the model and generate responses. When those responses fi
 `Create Initial Datasets`
 * *Labels*
   * Attempted Automated Labeling:
+    
+    There are two scripts that attempt to make the prompt dataset. These prompts are based off of a collection of the writeups on cves from the mitre collection of cves. They will associate the metasploit modules with ever one of the complete write ups housed in the the mitre datahouse. 
+
+    The prompts for training are the entire white paper and an additional prompt of the phrase `write a metasploit module for cve-xxxx-yyyyy`.
+     
+    - Automated Labeling will take the CVE code and attempt to search it on the cve database on the MITRE repository for CVEs. It will then search the URLs of the CVE references and create prompts that associate with the Metasploit module the cve goes with. 
+    *Note*: Hopeuflly this will create mroe variance on what kind of description of the CVEs will generate a valid module.
   * Manual Labeling:
 
 * *Training*

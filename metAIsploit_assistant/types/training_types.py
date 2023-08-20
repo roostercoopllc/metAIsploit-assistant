@@ -1,13 +1,17 @@
-from typing import List
+from typing import List, Optional
 from pydantic import BaseModel
 
+
 class TrainingPromptModel(BaseModel):
+    cve: str
     instruction: str
     input: str
     output: str
 
+
 class TrainingPromptModelSet(BaseModel):
     training_set: List[TrainingPromptModel]
+
 
 class TrainingFineTuneParamsModel(BaseModel):
     num_train_epochs: int
@@ -22,6 +26,7 @@ class TrainingFineTuneParamsModel(BaseModel):
     save_steps: int
     save_total_limit: int
     logging_steps: int
+
 
 class TrainingFineTuneInfoModel(BaseModel):
     hf_model_name: str

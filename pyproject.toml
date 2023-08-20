@@ -15,6 +15,7 @@ pyyaml = "^6.0.1"
 huggingface-hub = "^0.16.4"
 langchain = "^0.0.267"
 gpt4all = "^1.0.8"
+beautifulsoup4 = "^4.12.2"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.7.0"
@@ -28,6 +29,7 @@ init = "metAIsploit_assistant.utilities.models:get_models_inventory"
 chat = "metAIsploit_assistant.actions.chat:perform_chat"
 demo = "examples.explicit_poc:main"
 prompt-demo = "examples.explicit_poc:poetry_run_prompt_demo"
+quick-test = "metAIsploit_assistant.utilities.gatherers:get_full_prompt_list_for_msf"
 
 
 [build-system]
