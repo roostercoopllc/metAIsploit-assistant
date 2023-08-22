@@ -122,7 +122,7 @@ def get_full_prompt_list_for_msf() -> List[dict]:
             try:
                 prompt_model = TrainingPromptModel(
                     cve=msf_module.cve,
-                    prompt=f"Create a Metasploit module based off of the following research: {requests.get(url, timeout=10).content}",
+                    prompt=f"Create a Metasploit module based off of the following research: {str(requests.get(url, timeout=10).content)}",
                     response=f"The Metasploit modules for {msf_module.cve} can be written like this: ```rb\n{msf_module.response}\n```\n\nThe file must be saved in the `modules` directory of the metasploit. Generally using the folloiwng format <msf root>/modules/<os>/<service>/<exploit_name>.rb",
                     source=url,
                 )

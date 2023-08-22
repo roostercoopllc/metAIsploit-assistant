@@ -91,6 +91,7 @@ You can then chat with the model and generate responses. When those responses fi
 
 ## FAQs
 1. [What are the Metasploit Python Module Guidelines?](https://docs.metasploit.com/docs/development/developing-modules/external-modules/writing-external-python-modules.html)
+2. [What do you to to train a model?](https://huggingface.co/blog/how-to-train)
 
 ## References
 1. [Big thanks to Nomic AI and the gpt4all project](https://github.com/nomic-ai/gpt4all)
@@ -98,3 +99,5 @@ You can then chat with the model and generate responses. When those responses fi
 3. [Huggingface Dataset for Metasploit Prompts](https://huggingface.co/datasets/icantiemyshoe/cve-to-metasploit-module) 
 4. [LLaMA Retraining Evaluation](https://github.com/zetavg/LLaMA-LoRA-Tuner)
 5. [GPT4All Prompt Dataset](https://huggingface.co/datasets/nomic-ai/gpt4all-j-prompt-generations)
+6. [Base Model used for the gpt4all models](https://github.com/kingoflolz/mesh-transformer-jax)
+7. [Training nomic](https://github.com/nomic-ai/gpt4all/blob/main/gpt4all-training/README.md)

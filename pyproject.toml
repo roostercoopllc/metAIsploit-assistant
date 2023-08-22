@@ -16,6 +16,10 @@ huggingface-hub = "^0.16.4"
 langchain = "^0.0.267"
 gpt4all = "^1.0.8"
 beautifulsoup4 = "^4.12.2"
+transformers = "^4.32.0"
+tokenizers = "^0.13.3"
+accelerate = "^0.21.0"
+torch = "^2.0.1"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.7.0"
