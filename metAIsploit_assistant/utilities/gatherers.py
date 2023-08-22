@@ -2,6 +2,7 @@ import json
 import os
 import re
 import requests
+from time import time
 from typing import Tuple, Optional, List
 from metAIsploit_assistant.types.training_types import TrainingPromptModel
 from bs4 import BeautifulSoup
@@ -106,6 +107,7 @@ def write_generic_prompt_list(cve_str: str, msf_module_for_cve: str) -> List[dic
 def get_full_prompt_list_for_msf() -> List[dict]:
     prompt_list = []
     # find module from location
+    start_time = time()
     msf_modules = get_modules_for_cve()
     for msf_module in msf_modules:
         print(f"Creating Generics for {msf_module.cve}")
@@ -120,7 +122,7 @@ def get_full_prompt_list_for_msf() -> List[dict]:
             try:
                 prompt_model = TrainingPromptModel(
                     cve=msf_module.cve,
-                    prompt=f"Create a Metasploit module based off of the following research: {requests.get(url, verify=False).content}",
+                    prompt=f"Create a Metasploit module based off of the following research: {requests.get(url, timeout=10).content}",
                     response=f"The Metasploit modules for {msf_module.cve} can be written like this: ```rb\n{msf_module.response}\n```\n\nThe file must be saved in the `modules` directory of the metasploit. Generally using the folloiwng format <msf root>/modules/<os>/<service>/<exploit_name>.rb",
                     source=url,
                 )
@@ -129,7 +131,7 @@ def get_full_prompt_list_for_msf() -> List[dict]:
                 print(e)
 
     print(
-        f"Completed prompt generation. Total {len(msf_modules)} modules generated {len(prompt_list)} total prompts"
+        f"Completed prompt generation. Total {len(msf_modules)} modules generated {len(prompt_list)} total prompts in {time() - start_time}"
     )
     save_to_file = input("Do you want to save the output to a file? (y/n): ")
     if save_to_file == "y" or save_to_file == "yes" or save_to_file == "":
