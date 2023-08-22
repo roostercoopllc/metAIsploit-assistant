@@ -122,7 +122,7 @@ def get_full_prompt_list_for_msf() -> List[dict]:
             try:
                 prompt_model = TrainingPromptModel(
                     cve=msf_module.cve,
-                    prompt=f"Create a Metasploit module based off of the following research: {str(requests.get(url, timeout=10).content)}",
+                    prompt=f"Create a Metasploit module based off of the following research: {requests.get(url, timeout=10).content.decode('utf-8')}",
                     response=f"The Metasploit modules for {msf_module.cve} can be written like this: ```rb\n{msf_module.response}\n```\n\nThe file must be saved in the `modules` directory of the metasploit. Generally using the folloiwng format <msf root>/modules/<os>/<service>/<exploit_name>.rb",
                     source=url,
                 )
@@ -130,9 +130,6 @@ def get_full_prompt_list_for_msf() -> List[dict]:
             except Exception as e:
                 print(e)
 
-    print(
-        f"Completed prompt generation. Total {len(msf_modules)} modules generated {len(prompt_list)} total prompts in {time() - start_time}"
-    )
     save_to_file = input("Do you want to save the output to a file? (y/n): ")
     if save_to_file == "y" or save_to_file == "yes" or save_to_file == "":
         file_location = input(
@@ -142,4 +139,6 @@ def get_full_prompt_list_for_msf() -> List[dict]:
             file_location = "datasets/metasploit-prompts.json"
         with open(file_location, "w") as fi:
             json.dump(prompt_list, fi)
-    return prompt_list
+    print(
+        f"Completed prompt generation. Total {len(msf_modules)} modules generated {len(prompt_list)} total prompts in {time() - start_time}"
+    )
