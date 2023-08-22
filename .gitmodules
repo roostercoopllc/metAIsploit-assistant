@@ -1,0 +1,3 @@
+[submodule "cve-to-metasploit-module"]
+	path = cve-to-metasploit-module
+	url = https://huggingface.co/datasets/icantiemyshoe/cve-to-metasploit-module
