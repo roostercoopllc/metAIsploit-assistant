@@ -4,9 +4,9 @@ from pydantic import BaseModel
 
 class TrainingPromptModel(BaseModel):
     cve: str
-    instruction: str
-    input: str
-    output: str
+    prompt: str
+    response: str
+    source: str
 
 
 class TrainingPromptModelSet(BaseModel):

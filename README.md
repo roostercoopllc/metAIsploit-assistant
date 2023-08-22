@@ -97,3 +97,4 @@ You can then chat with the model and generate responses. When those responses fi
 2. [Big thanks to Metasploit Framework by Rapid 7](https://github.com/rapid7/metasploit-framework)
 3. [Huggingface Dataset for Metasploit Prompts](https://huggingface.co/datasets/icantiemyshoe/cve-to-metasploit-module) 
 4. [LLaMA Retraining Evaluation](https://github.com/zetavg/LLaMA-LoRA-Tuner)
+5. [GPT4All Prompt Dataset](https://huggingface.co/datasets/nomic-ai/gpt4all-j-prompt-generations)

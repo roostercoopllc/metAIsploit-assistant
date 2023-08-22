@@ -25,7 +25,10 @@ def get_generic_cve_writeup_content(url: str) -> str:
 def get_urls_from_mitre_cve_post(cve_str: str) -> List[str]:
     urls = []
     mitre_cve_content = get_cve_content(cve_str)
-    # Get the urls
+    cve_soup = BeautifulSoup(mitre_cve_content, "html.parser")
+    for tag in cve_soup.find_all(["a"]):
+        if "URL:" in str(tag):
+            urls.append(tag["href"])
     return urls
 
 
@@ -51,7 +54,7 @@ def get_prompt_model_from_msf(msf_module_file: str) -> Optional[TrainingPromptMo
         cve = find_cve_in_input(msf_module_content)
         if cve[0]:
             training_prompt = TrainingPromptModel(
-                cve=cve[1], instruction="", input="", output=msf_module_content
+                cve=cve[1], prompt="", response=msf_module_content, source=""
             )
     return training_prompt
 
@@ -78,19 +81,22 @@ def get_modules_for_cve() -> List[TrainingPromptModel]:
 def write_generic_prompt_list(cve_str: str, msf_module_for_cve: str) -> List[dict]:
     prompts = [
         {
-            "instruction": f"Write a metasploit modules for {cve_str}",
-            "input": f"Write a metasploit modules for {cve_str}",
-            "output": msf_module_for_cve,
+            "cve": cve_str,
+            "prompt": f"Write a metasploit modules for {cve_str}",
+            "response": msf_module_for_cve,
+            "source": "Generic Generation",
         },
         {
-            "instruction": f"Write a metasploit modules for the {cve_str}",
-            "input": f"Write a metasploit modules for the {cve_str}",
-            "output": msf_module_for_cve,
+            "cve": cve_str,
+            "prompt": f"Write a metasploit modules for the {cve_str}",
+            "response": msf_module_for_cve,
+            "source": "Generic Generation",
         },
         {
-            "instruction": f"Write a metasploit modules for the vulnerabilty {cve_str}",
-            "input": f"Write a metasploit modules for the vulnerabilty {cve_str}",
-            "output": msf_module_for_cve,
+            "cve": cve_str,
+            "prompt": f"Write a metasploit modules for the vulnerabilty {cve_str}",
+            "response": msf_module_for_cve,
+            "source": "Generic Generation",
         },
     ]
 
@@ -105,19 +111,33 @@ def get_full_prompt_list_for_msf() -> List[dict]:
         print(f"Creating Generics for {msf_module.cve}")
         # generate prompts from msf
         prompt_list = prompt_list + write_generic_prompt_list(
-            msf_module.cve, msf_module.output
+            msf_module.cve, msf_module.response
         )
         print(f"Gathering urls for {msf_module.cve}")
         # search for mitre cves
         urls_list = get_urls_from_mitre_cve_post(msf_module.cve)
         for url in urls_list:
-            ...
-    print(f"Completed prompt generation. Total {len(msf_modules)} modules generated {len(prompt_list)} total prompts")
+            try:
+                prompt_model = TrainingPromptModel(
+                    cve=msf_module.cve,
+                    prompt=f"Create a Metasploit module based off of the following research: {requests.get(url, verify=False).content}",
+                    response=f"The Metasploit modules for {msf_module.cve} can be written like this: ```rb\n{msf_module.response}\n```\n\nThe file must be saved in the `modules` directory of the metasploit. Generally using the folloiwng format <msf root>/modules/<os>/<service>/<exploit_name>.rb",
+                    source=url,
+                )
+                prompt_list.append(dict(prompt_model))
+            except Exception as e:
+                print(e)
+
+    print(
+        f"Completed prompt generation. Total {len(msf_modules)} modules generated {len(prompt_list)} total prompts"
+    )
     save_to_file = input("Do you want to save the output to a file? (y/n): ")
-    if save_to_file == 'y' or save_to_file == 'yes':
-        file_location = input("Save File Location? (Default Location: ./datasets/metasploit-prompts.json): ")
+    if save_to_file == "y" or save_to_file == "yes" or save_to_file == "":
+        file_location = input(
+            "Save File Location? (Default Location: ./datasets/metasploit-prompts.json): "
+        )
         if file_location == "":
             file_location = "datasets/metasploit-prompts.json"
-        with open(file_location, 'w') as fi:
+        with open(file_location, "w") as fi:
             json.dump(prompt_list, fi)
     return prompt_list
