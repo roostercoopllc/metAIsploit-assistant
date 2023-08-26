@@ -7,6 +7,7 @@ class TrainingPromptModel(BaseModel):
     prompt: str
     response: str
     source: str
+    script_type: str
 
 
 class TrainingPromptModelSet(BaseModel):

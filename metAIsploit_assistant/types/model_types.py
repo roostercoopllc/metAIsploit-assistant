@@ -56,3 +56,37 @@ class BASE_MODELS:
 
     def get_model_inventory() -> List[HackerModel]:
         return [BASE_MODELS.SNOOZY]
+
+
+class MSFModuleTypes(StrEnum):
+    REMOTE_EXPLOIT_CMD_STAGER = "remote_exploit_cmd_stager"
+    CAPTURE_SERVER = "capture_server"
+    DOS = "dos"
+    SINGLE_SCANNER = "single_scanner"
+    MULTI_SCANNER = "multi_scanner"
+
+
+class MSFModuleCategories(StrEnum):
+    AUXILIARY = "auxiliary"
+    EXPLOIT = "exploit"
+    POST = "post"
+
+
+class MSFAuxiliaryCategories(StrEnum):
+    ADMIN = "admin"
+    ANALYZE = "analyze"
+    CLIENT = "client"
+    DOS = "dos"
+    FUZZERS = "fuzzers"
+    GATHER = "gather"
+    SCANNER = "scanner"
+    SERVER = "server"
+    SNIFFER = "sniffer"
+
+
+class MSFExploitCategories(StrEnum):
+    ...
+
+
+class MSFPostCategories(StrEnum):
+    ...

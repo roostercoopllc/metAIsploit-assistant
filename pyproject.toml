@@ -20,6 +20,7 @@ transformers = "^4.32.0"
 tokenizers = "^0.13.3"
 accelerate = "^0.21.0"
 torch = "^2.0.1"
+pymetasploit3 = "^1.0.3"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.7.0"

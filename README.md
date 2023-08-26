@@ -15,7 +15,7 @@ For a quick demo on how this is used please run the following commands (assuming
 Setup
 ```sh
 pip install poetry
-git clone https://github.com/roostercoopllc/metAIsploit-assistant
+git clone https://github.com/roostercoopllc/metAIsploit-assistant -r
 cd metAIsploit-assistant
 poetry install
 # (Optional) This will download the snoozy binary by default
@@ -101,3 +101,4 @@ You can then chat with the model and generate responses. When those responses fi
 5. [GPT4All Prompt Dataset](https://huggingface.co/datasets/nomic-ai/gpt4all-j-prompt-generations)
 6. [Base Model used for the gpt4all models](https://github.com/kingoflolz/mesh-transformer-jax)
 7. [Training nomic](https://github.com/nomic-ai/gpt4all/blob/main/gpt4all-training/README.md)
+8. [Command Stagers](https://docs.metasploit.com/docs/development/developing-modules/guides/how-to-use-command-stagers.html)
