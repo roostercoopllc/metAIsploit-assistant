@@ -21,18 +21,18 @@ def get_cve_content(cve_number: str) -> str:
     return requests.get(make_cve_url(cve_number)).content
 
 
-def get_generic_cve_writeup_content(url: str) -> Optional[str]:
+def get_generic_html_cve_writeup_content(url: str) -> Optional[str]:
     content = requests.get(url, timeout=10).content.decode("utf-8")
     cve_soup = BeautifulSoup(content, "html.parser").find_all(["body"])
-    return str(cve_soup)
+    return str(cve_soup[0])
 
 
-def get_urls_from_mitre_cve_post(cve_str: str) -> List[str]:
+def get_web_urls_from_mitre_cve_post(cve_str: str) -> List[str]:
     urls = []
     mitre_cve_content = get_cve_content(cve_str)
     cve_soup = BeautifulSoup(mitre_cve_content, "html.parser")
     for tag in cve_soup.find_all(["a"]):
-        if "URL:" in str(tag):
+        if ("URL:" in str(tag) or "MISC:" in str(tag)) and ".pdf" not in tag["href"]:
             urls.append(tag["href"])
     return urls
 
@@ -183,13 +183,13 @@ def get_full_prompt_list_for_msf() -> List[dict]:
         )
         print(f"Gathering urls for {msf_module.cve}")
         # search for mitre cves
-        urls_list = get_urls_from_mitre_cve_post(msf_module.cve)
+        urls_list = get_web_urls_from_mitre_cve_post(msf_module.cve)
         for url in urls_list:
             try:
-                research = get_generic_cve_writeup_content(url)
+                research = get_generic_html_cve_writeup_content(url)
                 prompt_model = TrainingPromptModel(
                     cve=msf_module.cve,
-                    prompt=f"Create a Metasploit module based off of the following research: {get_generic_cve_writeup_content(url)}",
+                    prompt=f"Create a Metasploit module based off of the following research: {get_generic_html_cve_writeup_content(url)}",
                     response=f"The Metasploit modules for {msf_module.cve} can be written like this: ```rb\n{msf_module.response}\n```\n\nThe file must be saved in the `modules` directory of the metasploit. Generally using the folloiwng format <msf root>/modules/<os>/<service>/<exploit_name>.rb",
                     source=url,
                     script_type="ruby",
